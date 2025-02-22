@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumes Shortlisting</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <!-- Marquee Section -->
+    <div class="marquee-container">
+        <div class="marquee">
+            <img src="{{ url_for('static', filename='iit labs.jpeg') }}" alt="IIT Labs Logo" class="logo">
+            
+        </div>
+    </div>
+
+    <!-- Main Content Container -->
+    <div class="container mt-5">
+        <h2 class="text-center text-primary">Resumes Shortlisting</h2>
+
+        <!-- Job ID Form -->
+        <form method="POST" action="{{ url_for('index') }}" class="mt-4">
+            <div class="mb-3">
+                <label for="job_id" class="form-label fw-bold">Enter Job ID:</label>
+                <input type="text" id="job_id" name="job_id" class="form-control" value="{{ job_id or '' }}" required>
+            </div>
+            <button id="btnbutton" type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="mt-4">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Display Extracted Resume Details -->
+        {% if tables %}
+            <div class="mt-5">
+                <h3 class="text-success text-center">Extracted Resume Details <strong>{{ job_id }}</strong></h3>
+
+                {% for table in tables %}
+                    <div class="table-responsive mt-4">
+                        {{ table | safe }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-warning text-center mt-4">
+                ⚠️ No matching resumes found for Job ID: <strong>{{ job_id }}</strong>.
+            </div>
+        {% endif %}
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer text-center mt-4 py-3 bg-light">
+        <p>&copy; 2025 innoSoul. Developed by IIT LABS...</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

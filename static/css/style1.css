@@ -1,0 +1,84 @@
+/* Center the form container */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: hsl(0, 21%, 94%);
+    /* background:linear-gradient(to right,#050332,#070c3c);   */
+    /* background:rgba(80, 214, 205, 0.4);
+    backdrop-filter:blur(10px); */
+    margin: 0;
+}
+
+/* Styling for the form container */
+.form-container {
+    width: 400px;  /* Adjust width */
+    padding: 20px;
+    background: rgb(255, 255, 255);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-size: 17px;  /* Adjust font size for better readability */
+}
+
+/* Title Styling */
+h1 {
+    font-size: 36px;
+    font-weight: bold;
+    color: #535208;
+    text-align: center;  /* Center the title */
+    margin-bottom: 20px;  /* Space between title and form */
+}
+
+h2 {
+    text-align: center;
+}
+
+/* Center the form elements */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;  /* Space between inputs */
+    align-items: center;  /* This will center the elements in the form */
+}
+
+/* Input styling */
+input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 75%;  /* Set the width to 75% */
+    margin: 0 auto;  /* Center the input elements */
+}
+
+/* Button styling */
+button {
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 81%;  /* Set the width to 75% */
+    margin: 0 auto;  /* Center the button */
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Forgot Password Link */
+a {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+    text-decoration: none;
+    color: #007bff;
+}
+
+a:hover {
+    text-decoration: underline;
+}

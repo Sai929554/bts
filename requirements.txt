@@ -1,0 +1,10 @@
+Flask
+pandas
+flask-caching
+python-docx
+PyPDF2
+pytesseract
+pdf2image
+spacy
+word2number
+scikit-learn
