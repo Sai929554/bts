@@ -10,3 +10,4 @@ word2number
 scikit-learn
 waitress
 flask-cors
+flask-session
