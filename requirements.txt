@@ -8,3 +8,4 @@ pdf2image
 spacy
 word2number
 scikit-learn
+waitress
