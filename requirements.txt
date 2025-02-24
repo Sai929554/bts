@@ -9,3 +9,4 @@ spacy
 word2number
 scikit-learn
 waitress
+flask-cors
