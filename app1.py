@@ -6,6 +6,7 @@ import random
 import spacy
 import subprocess
 from flask_caching import Cache
+from flask_cors import CORS  # Added CORS for cross-origin access
 from gamil import process_resumes_for_job  # Updated function name to avoid input() issue
 
 # Ensure Spacy Model is Installed
@@ -17,8 +18,10 @@ except OSError:
     nlp = spacy.load("en_core_web_sm")
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
-
 app.secret_key = os.getenv('SECRET_KEY', 'your_default_secret_key')  # Use environment variable for security
+
+# Enable CORS to allow access from your company website
+CORS(app, origins=["https://www.iitlabs.us"], supports_credentials=True)
 
 # Set up caching (in-memory cache for simplicity)
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
@@ -144,4 +147,4 @@ def logout():
     return redirect(url_for('login'))
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.getenv("PORT", 5000)))
+    app.run(host="0.0.0.0", port=int(os.getenv("PORT", 5000)), debug=True)
