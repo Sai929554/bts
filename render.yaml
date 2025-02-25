@@ -3,7 +3,7 @@ services:
     name: gmail-project
     env: python
     buildCommand: "./render-build.sh"
-    startCommand: waitress-serve --listen=0.0.0.0:5000 app1:app
+    startCommand: waitress-serve --port=5000 app1:app
     envVars:
       - key: PORT
         value: 5000
