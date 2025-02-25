@@ -61,6 +61,12 @@ def send_reset_email(user_email):
 def serve_image(filename):
     return send_from_directory("static/images", filename)
 
+@app.after_request
+def add_security_headers(response):
+    response.headers["X-Frame-Options"] = "ALLOW-FROM https://www.iitlabs.us"
+    response.headers["Content-Security-Policy"] = "frame-ancestors 'self' https://www.iitlabs.us;"
+    return response
+
 @app.route('/')
 def login():
     return render_template('login.html')
@@ -94,51 +100,6 @@ def index():
         df_cleaned = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
         return render_template("index.html", tables=[df_cleaned.to_html(classes='table table-bordered', index=False)])
     return render_template("index.html")
-
-@app.route('/forgot_password')
-def forgot_password():
-    return render_template('forgot_password.html')
-
-@app.route('/forgot_password', methods=['POST'])
-def send_otp():
-    email = request.form['email']
-    otp = str(random.randint(100000, 999999))
-    otp_storage[email] = otp  # Store OTP temporarily
-    print(f"OTP for {email}: {otp}")  # Debugging purposes
-    flash("OTP sent to your email.", "success")
-    return redirect(url_for('confirm_otp'))
-
-@app.route('/confirm_otp')
-def confirm_otp():
-    return render_template('confirm_otp.html')
-
-@app.route('/confirm_otp', methods=['POST'])
-def verify_otp():
-    email = request.form.get('email')
-    otp = request.form['otp']
-    if email in otp_storage and otp_storage[email] == otp:
-        session['reset_email'] = email
-        return redirect(url_for('reset_password'))
-    else:
-        flash("Invalid OTP. Please try again.", "danger")
-        return redirect(url_for('confirm_otp'))
-
-@app.route('/reset_password')
-def reset_password():
-    return render_template('reset_password.html')
-
-@app.route('/reset_password', methods=['POST'])
-def reset_password_post():
-    if 'reset_email' not in session:
-        return redirect(url_for('login'))
-    new_password = request.form['new_password']
-    confirm_password = request.form['confirm_password']
-    if new_password == confirm_password:
-        flash("Password reset successfully. Please log in.", "success")
-        return redirect(url_for('login'))
-    else:
-        flash("Passwords do not match. Try again.", "danger")
-        return redirect(url_for('reset_password'))
 
 @app.route('/logout')
 def logout():
