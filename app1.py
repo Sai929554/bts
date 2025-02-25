@@ -101,6 +101,10 @@ def index():
         return render_template("index.html", tables=[df_cleaned.to_html(classes='table table-bordered', index=False)])
     return render_template("index.html")
 
+@app.route('/forgot_password')
+def forgot_password():
+    return render_template('forgot_password.html')
+
 @app.route('/logout')
 def logout():
     session.pop('user', None)
