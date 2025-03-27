@@ -446,7 +446,7 @@ def index():
 @login_required
 def process_job(job_id):
     try:
-        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+        creds = Credentials.from_authorized_user_file('config/token.json', SCOPES)
         service = build("gmail", "v1", credentials=creds)
     except Exception as e:
         logging.error(f"Authentication failed: {e}")
