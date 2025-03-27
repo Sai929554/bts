@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results - Resume Processing Tool</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 1200px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+        }
+        h1 {
+            color: #000000;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .skills-section {
+            margin-top: 20px;
+        }
+        .table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .table {
+            font-size: 14px;
+            width: 100%;
+            min-width: 800px;
+            border-collapse: collapse;
+        }
+        .table th, .table td {
+            white-space: nowrap;
+            padding: 8px;
+            border: 1px solid #dee2e6; /* Add borders to cells for table lines */
+            text-align: left; /* Align text to the left for consistency */
+        }
+        .table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        .download-link {
+            color: #121213;
+            text-decoration: underline;
+        }
+        .header-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+        .header-actions a {
+            color: #0c0c0c;
+            text-decoration: none;
+            margin-left: 15px;
+            font-weight: bold;
+        }
+        .header-actions a:hover {
+            text-decoration: underline;
+        }
+        .home-icon, .logout-icon {
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header with Back to Home and Logout links -->
+        {% if current_user.is_authenticated %}
+            <div class="header-actions">
+                <a href="{{ url_for('index') }}">
+                    Back to Home <img src="https://cdn-icons-png.flaticon.com/128/10102/10102571.png" alt="Home Icon" class="home-icon">
+                </a>
+                <a href="{{ url_for('logout') }}">
+                    Logout <img src="https://cdn-icons-png.flaticon.com/128/6619/6619122.png" alt="Logout Icon" class="logout-icon">
+                </a>
+            </div>
+        {% endif %}
+
+        <div>
+            <h1>Resume Shortlisting</h1>
+            
+            {% if message %}
+                <p class="text-center">{{ message }}</p>
+            {% else %}
+                <div class="skills-section">
+                    <h3>Extracted Skills From Email Body</h3>
+                    {% for info in skills_info %}
+                        <p><strong>Subject:</strong> [{{ info.subject | join(', ') }}]</p>
+                        <p><strong>Required/Desired Skills:</strong></p>
+                        <ul>
+                           {% for skill in info.skills %}
+                             5<li>{{ skill }}</li>
+                           {% endfor %}
+                        </ul>
+                    {% endfor %}
+                </div>
+                <h3>Candidate's Details</h3>
+                <div class="table-container">
+                    {{ table_html | safe }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
