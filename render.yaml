@@ -1,9 +1,0 @@
-services:
-  - type: web
-    name: gmail-project
-    env: python
-    buildCommand: "./render-build.sh"
-    startCommand: "waitress-serve --port=5000 app1:app"
-    envVars:
-      - key: PORT
-        value: 5000
