@@ -17,8 +17,7 @@ from PyPDF2 import PdfReader
 import shutil
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = 'Resumes'
-app.config['SECRET_KEY'] = 'your-secret-key-here'  # Change to a secure random key
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'default-secret-key')app.config['SECRET_KEY'] = 'your-secret-key-here'  # Change to a secure random key
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
