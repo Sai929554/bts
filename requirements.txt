@@ -1,13 +1,8 @@
 Flask
+Flask-Login
+google-auth
+google-api-python-client
 pandas
-flask-caching
 python-docx
 PyPDF2
-pytesseract
-pdf2image
-spacy
-word2number
-scikit-learn
 waitress
-flask-cors
-flask-session
