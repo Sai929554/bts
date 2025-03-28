@@ -15,6 +15,7 @@ import io
 from docx import Document
 from PyPDF2 import PdfReader
 import shutil
+from waitress import serve
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'default-secret-key')app.config['SECRET_KEY'] = 'your-secret-key-here'  # Change to a secure random key
@@ -508,3 +509,4 @@ def download_file(filename):
 if __name__ == '__main__':
     if not os.path.exists(app.config['UPLOAD_FOLDER']):
         os.makedirs(app.config['UPLOAD_FOLDER'])
+    serve(app, host='0.0.0.0', port=10000)
